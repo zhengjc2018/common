@@ -111,6 +111,7 @@ def sort5(array1, array2):
             res.append(array2[j])
             j += 1
 
+    assert res == sorted(res)
     return res
 
 

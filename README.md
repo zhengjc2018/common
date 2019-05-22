@@ -1,5 +1,9 @@
 ### common functions
 ------
+【2019.5.22】
+1. 修复markdown转pdf的乱码问题
+
+
 【2019.5.16】
 
 1. 添加markdown转pdf功能, 需先下载[wkhtmltopdf](https://github.com/JazzCore/python-pdfkit/wiki/Installing-wkhtmltopdf)    ---- md2pdf.py
