@@ -31,7 +31,7 @@ def sort1(array):
     """     冒泡排序     """
     length = len(array) - 1
     for i in range(length):
-        for j in range(0, length):
+        for j in range(0, length-i):
             if array[j] > array[j+1]:
                 array[j], array[j+1] = array[j+1], array[j]
 
@@ -62,7 +62,7 @@ def sort2(array):
     return array
 
 
-# 最优O(n)， 最差O(n^2)   空间O(1)
+# 最优O(n^2)， 最差O(n^2)   空间O(1)
 @timeit
 def sort3(array):
     """     选择排序     """
@@ -116,24 +116,100 @@ def sort5(array1, array2):
 
 
 # 最优O(nlogn)， 最差O(nlogn)   空间O(n)
+def quick(args):
+    if args == []:
+        return []
+    else:
+        pivot = args[0]
+        left = quick([i for i in args[1:] if i < pivot])
+        high = quick([i for i in args[1:] if i > pivot])
+        return left + [pivot] + high
+
+
 @timeit
-def sort6(array):
+def sort6(seq):
     """     快速排序     """
-    pass
+    return quick(seq)
+
+
+@timeit
+def sort7(seq):
+    ''' 快速排序2 '''
+    return quick_sort_standord(seq, 0, len(seq)-1)
+
+
+def quick_sort_standord(array, low, high):
+    if low < high:
+        key_index = partion(array, low, high)
+        quick_sort_standord(array, low, key_index)
+        quick_sort_standord(array, key_index+1, high)
+
+
+def partion(array, low, high):
+    key = array[low]
+    while low < high:
+        while low < high and array[high] >= key:
+            high -= 1
+        if low < high:
+            array[low] = array[high]
+
+        while low < high and array[low] < key:
+            low += 1
+        if low < high:
+            array[high] = array[low]
+
+    array[low] = key
+    return low
 
 
 def test():
-    array = get_array(20)
+    num = 5000
+    array = get_array(num)
     sort1(array)
-    array = get_array(20)
+    array = get_array(num)
     sort2(array)
-    array = get_array(20)
+    array = get_array(num)
     sort3(array)
-    array = get_array(20)
+    array = get_array(num)
     sort4(array)
-    array1 = get_array(20, True)
-    array2 = get_array(20, True)
+    array1 = get_array(num, True)
+    array2 = get_array(num, True)
     sort5(array1, array2)
+    array = get_array(num)
+    sort6(array)
+    array = get_array(num)
+    sort7(array)
+
+
+def binary_search(array, key):
+    left = 0
+    right = len(array) - 1
+
+    while left <= right:
+        middle = (left + right)//2
+
+        if array[middle] > key:
+            right = middle - 1
+        elif array[middle] == key:
+            return middle
+        else:
+            left = middle + 1
+
+    return None
+
+
+def test_binary_search():
+    array1 = [1, 2, 3, 4, 5, 11, 15, 16, 20]
+    array2 = [1, 2, 3, 4, 5, 11, 15, 16]
+    assert binary_search(array1, 0) is None
+    assert binary_search(array1, 21) is None
+
+    assert binary_search(array2, 0) is None
+    assert binary_search(array2, 21) is None
+
+    for array in [array1, array2]:
+        for i, j in enumerate(array):
+            assert binary_search(array, j) == i
 
 
 if __name__ == '__main__':
