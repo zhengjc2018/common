@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - '3.6.5'
+
+git:
+  depth: false
+
+before_install:
+- echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+- git lfs pull
+
+# safelist
+branches:
+  only:
+  - master
+
+
