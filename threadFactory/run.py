@@ -1,10 +1,7 @@
-import time
 import os
 import sys
 import threading
-import datetime as dt
 from time import sleep
-from collections import deque
 from queue import Queue, Empty
 from threading import RLock, Thread
 import unittest
