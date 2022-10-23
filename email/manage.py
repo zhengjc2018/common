@@ -55,4 +55,6 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    # run()
+    import random
+    print(random.rand(0, 1))
